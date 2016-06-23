@@ -5,6 +5,7 @@
 
 %h1= @car.name
 %p= @car.description
+= image_tag @car.image.url(:medium)
 	
 
 - @bookings.each do |booking|

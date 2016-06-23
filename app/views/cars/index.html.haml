@@ -1,6 +1,7 @@
 - @cars.each do |car|
 
 	%h1= link_to car.name, car
+	= link_to (image_tag car.image.url(:medium)), car
 
 	- @bookings.where(car_id: car.id).each do |booking|
 
