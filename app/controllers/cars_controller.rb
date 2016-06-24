@@ -1,5 +1,6 @@
 class CarsController < ApplicationController
 	before_action :find_car, only: [:show, :edit, :update, :destroy]
+	before_action :authenticate_user!, except: [:index, :show]
 
 
 	def index
@@ -17,11 +18,11 @@ class CarsController < ApplicationController
 	end
 
 	def new
-		@car = Car.new
+		@car = current_user.cars.build
 	end
 
 	def create
-		@car = Car.new(car_params)
+		@car = current_user.cars.build(car_params)
 
 		if @car.save
 			redirect_to @car, notice: "Succesfully created new car"
@@ -44,10 +45,10 @@ class CarsController < ApplicationController
 
 	def destroy
 		@car.destroy
+		@bookings = @car.bookings.where(car_id: @car.id)
+		@bookings.destroy_all
 		redirect_to root_path
 	end
-
-
 
 	private
 

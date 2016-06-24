@@ -1,6 +1,7 @@
 = simple_form_for([@car,@booking]) do |f|
-  = f.input :customer_name
-  = f.input :comment
-  = f.input :booked_from
-  = f.input :booked_to
-  = f.button :submit
+	.form-group
+		= f.input :customer_name
+		= f.input :comment
+		= f.input :booked_from
+		= f.input :booked_to
+		= f.button :submit

@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
   before_action :set_car
 
@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
   end
 
   def new
-    @booking = Booking.new
+    @booking = current_user.bookings.build
   end
 
   def edit
@@ -19,7 +19,7 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @booking = Booking.new(booking_params)
+    @booking = current_user.bookings.build(booking_params)
     @booking.car_id = @car.id
 
       if @booking.save
